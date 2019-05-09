@@ -1,0 +1,41 @@
+doctype html
+html
+  head
+    meta(charset='utf-8')
+    meta(http-equiv='X-UA-Compatible', content='IE=edge')
+
+    title #{title} - AnchorFree
+
+    meta(name='viewport', content='width=device-width, initial-scale=1')
+
+    link(rel='stylesheet', href='/styles/styles.css')
+  body
+    .wrapper.bg-white
+        header.bg-light-grey.padding-1
+            div.logo
+                a(href='/')
+                    h1.black.normal LOGO
+            div.header-links.text-right
+                a.underline(href='/menu-1') Menu 1
+                |
+                |
+                span | 
+                |
+                |
+                a.underline(href='/menu-2') Menu 2
+                |
+                |
+                span | 
+                |
+                |
+                a.underline(href='/menu-3') Menu 3
+        .container
+            .side-nav.large-one-fifth.bg-dark-grey
+                each link in ['Menu 1', 'Menu 2', 'Menu 3', 'Menu 4', 'Menu 5']
+                    a(class=(link === title ? "active" : undefined) href='/' + link.split(" ").join("-").toLowerCase())= link
+            .main-content.large-three-fifths
+                block content
+            .sidebar.large-one-fifth.bg-dark-grey
+                block sidebar
+    footer.padding-1.text-center
+        p.sm.white Copyright &copy; 2014 All Rights Reserved

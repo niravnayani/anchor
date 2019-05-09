@@ -1,0 +1,293 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto:400, 700');
+
+//Colors
+$light-grey: #eee;
+$medium-grey: #ddd;
+$dark-grey: #ccc;
+$dark: #bbb;
+$black: #000;
+$white: #fff;
+$link-color: #00e;
+
+.white {
+	color: $white;
+}
+.black {
+	color: $black;
+}
+.bg-white {
+	background: $white;
+}
+.bg-light-grey {
+	background: $light-grey;
+}
+.bg-dark-grey {
+	background: $dark-grey;
+}
+
+//Breakpoints
+$small: 480px;
+$large: 780px;
+
+//Mixins
+@mixin box-shadow($top, $left, $blur, $color, $inset: false) {
+	@if $inset {
+		-webkit-box-shadow: inset $top $left $blur $color;
+		-moz-box-shadow: inset $top $left $blur $color;
+		box-shadow: inset $top $left $blur $color;
+	} @else {
+		-webkit-box-shadow: $top $left $blur $color;
+		-moz-box-shadow: $top $left $blur $color;
+		box-shadow: $top $left $blur $color;
+	}
+}
+
+@mixin flexbox() {
+	display: -webkit-box;
+	display: -moz-box;
+	display: -ms-flexbox;
+	display: -webkit-flex;
+	display: flex;
+}
+
+@mixin flex-wrap($wrap) {
+	-webkit-flex-wrap: $wrap;
+	-moz-flex-wrap: $wrap;
+	-ms-flex-wrap: $wrap;
+	flex-wrap: $wrap;
+}
+
+@mixin justify-content($justify) {
+	-webkit-justify-content: $justify;
+	-moz-justify-content: $justify;
+	-ms-justify-content: $justify;
+	justify-content: $justify;
+	-ms-flex-pack: $justify;
+}
+
+@mixin align-items($align) {
+	-webkit-align-items: $align;
+	-moz-align-items: $align;
+	-ms-align-items: $align;
+	align-items: $align;
+}
+
+@function calculateRem($size) {
+	$remSize: $size / 16px;
+	@return $remSize * 1rem;
+}
+@mixin font-size($size) {
+	font-size: $size;
+	font-size: calculateRem($size);
+}
+
+@mixin bp-small {
+	@media only screen and (max-width: $small) {
+		@content;
+	}
+}
+
+@mixin bp-large {
+	@media only screen and (max-width: $large) {
+		@content;
+	}
+}
+
+* {
+	margin: 0;
+	padding: 0;
+}
+
+//Typography
+.normal {
+	font-weight: normal;
+}
+
+h1 {
+	@include font-size(50px);
+
+	@include bp-large {
+		@include font-size(35px);
+	}
+
+	@include bp-small {
+		@include font-size(30px);
+	}
+}
+
+h2 {
+	border-bottom: 4px solid $dark-grey;
+	margin: 0.3em 0 0.6em;
+
+	@include bp-small {
+		@include font-size(20px);
+	}
+}
+
+p {
+	margin-bottom: 0.3em;
+	overflow: hidden;
+}
+
+.bg {
+	@include font-size(20px);
+
+	@include bp-small {
+		@include font-size(18px);
+	}
+}
+
+.sm {
+	@include font-size(14px);
+}
+
+.underline {
+	text-decoration: underline;
+}
+
+//Grid
+.large-one-fifth {
+	width: 20%;
+
+	@include bp-large {
+		width: 100%;
+	}
+}
+
+.large-three-fifths {
+	width: 60%;
+
+	@include bp-large {
+		width: 100%;
+	}
+}
+
+//Spacing
+.padding-1 {
+	padding: 1em;
+}
+
+.padding-r1 {
+	padding-right: 1em;
+}
+
+//Align
+.text-center {
+	text-align: center;
+}
+
+.text-right {
+	text-align: right;
+}
+
+//Base
+body {
+	background: url("../images/bg.jpg");
+	background-size: cover;
+	padding: 1em;
+	font-family: "Roboto", sans-serif;
+
+	@include bp-small {
+		padding: 0;
+	}
+}
+
+a {
+	text-decoration: none;
+	color: $link-color;
+
+	@include bp-small {
+		@include font-size(12px);
+	}
+}
+
+.wrapper {
+	max-width: 1200px;
+	margin: 0 auto;
+	@include box-shadow(0, 0, 6px, rgba(0, 0, 0, 0.7));
+
+	@include bp-small {
+		box-shadow: none;
+	}
+
+	header {
+		@include flexbox;
+		@include justify-content(space-between);
+		@include align-items(baseline);
+
+		.logo {
+			padding-left: 1em;
+		}
+
+		@include bp-large {
+			@include align-items(center);
+
+			.logo {
+				padding-left: 0;
+			}
+		}
+
+		@include bp-small {
+			padding: 0.5em 0.7em;
+		}
+	}
+
+	.container {
+		@include flexbox;
+        @include flex-wrap(wrap);
+        
+        img {
+            @include bp-small {
+                max-width: 60%;
+            }
+        }
+	}
+
+	.side-nav {
+		@include bp-large {
+			background: $dark;
+			padding: 0.5em;
+		}
+
+		a {
+			display: block;
+			padding: 0.5em;
+			margin-bottom: 1px;
+			background: $dark;
+
+			&.active {
+				background: $medium-grey;
+			}
+
+			@include bp-large {
+				display: inline-block;
+				padding: 0.2em 0.5em;
+			}
+		}
+	}
+
+	.sidebar {
+		h2 {
+			border-color: $white;
+		}
+
+		.widget > div {
+			padding-bottom: 1em;
+		}
+
+		@include bp-large {
+			.widget {
+				@include flexbox;
+			}
+			.widget > div:not(:last-of-type) {
+				padding-right: 1em;
+			}
+		}
+
+		@include bp-small {
+			.widget {
+				display: block;
+			}
+		}
+	}
+}
